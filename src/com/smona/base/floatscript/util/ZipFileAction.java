@@ -4,7 +4,6 @@ import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.Enumeration;
@@ -65,7 +64,7 @@ public class ZipFileAction {
 	}
 
 	public void unZip(String zipFileName, String outputDirectory) throws Exception {
-		println("unZip: " + zipFileName);
+		println("unZip: " + zipFileName + "; outputDirectory: " + outputDirectory);
 		ZipFile zipFile = new ZipFile(zipFileName);
 		try {
 			Enumeration<?> e = zipFile.getEntries();
@@ -126,74 +125,6 @@ public class ZipFileAction {
 			ex.printStackTrace();
 			println(ex.getMessage());
 		}
-	}
-
-	public void copyFileWithDir(String srcFile, String desFolder, String desFile) throws IOException {
-		(new File(desFolder)).mkdirs();
-		FileInputStream input = new FileInputStream(srcFile);
-		FileOutputStream output = new FileOutputStream(desFolder + Constants.DIR_SPLIT + desFile);
-		Logger.printDetail(
-				"copyFile: srcFile[" + srcFile + "];destFile[" + (desFolder + Constants.DIR_SPLIT + desFile) + "]");
-
-		byte[] b = new byte[1024 * 8];
-		int len;
-		while ((len = input.read(b)) != -1) {
-			output.write(b, 0, len);
-		}
-		output.flush();
-		output.close();
-		input.close();
-	}
-
-	public static void copyFile(String srcFile, String desFolder, String desFile) throws IOException {
-		FileInputStream input = new FileInputStream(srcFile);
-		FileOutputStream output = new FileOutputStream(desFolder + Constants.DIR_SPLIT + desFile);
-		Logger.printDetail("copyFile: srcFile[" + srcFile + "];destFile[" + desFile + "]");
-		byte[] b = new byte[1024 * 8];
-		int len;
-		while ((len = input.read(b)) != -1) {
-			output.write(b, 0, len);
-		}
-		output.flush();
-		output.close();
-		input.close();
-	}
-
-	public void delFolder(String folderPath) throws Exception {
-		delAllFile(folderPath);
-		String filePath = folderPath;
-		filePath = filePath.toString();
-		File myFilePath = new File(filePath);
-		myFilePath.delete();
-	}
-
-	public boolean delAllFile(String path) throws Exception {
-		boolean flag = false;
-		File file = new File(path);
-		if (!file.exists()) {
-			return flag;
-		}
-		if (file.isFile()) {
-			return file.delete();
-		}
-		String[] tempList = file.list();
-		File temp = null;
-		for (int i = 0; i < tempList.length; i++) {
-			if (path.endsWith(File.separator)) {
-				temp = new File(path + tempList[i]);
-			} else {
-				temp = new File(path + File.separator + tempList[i]);
-			}
-			if (temp.isFile()) {
-				temp.delete();
-			}
-			if (temp.isDirectory()) {
-				delAllFile(path + Constants.DIR_SPLIT + tempList[i]);
-				delFolder(path + Constants.DIR_SPLIT + tempList[i]);
-				flag = true;
-			}
-		}
-		return flag;
 	}
 
 	private void println(String msg) {

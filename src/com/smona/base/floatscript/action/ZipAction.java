@@ -23,6 +23,9 @@ public class ZipAction extends AbstractAction {
 	private void executeZip() {
 		String source = CommonUtils.rootPath + Constants.DIR_SPLIT + Constants.UNZIP;
 		String target = CommonUtils.rootPath + Constants.DIR_SPLIT + Constants.ZIP;
+
+		mkdirs(target);
+
 		File themeDir = new File(source);
 		File[] themes = themeDir.listFiles();
 		if (themes == null || themes.length == 0) {
@@ -31,7 +34,7 @@ public class ZipAction extends AbstractAction {
 		ZipFileAction action = new ZipFileAction();
 		for (File theme : themes) {
 			try {
-				action.zip(theme.getName(), target + theme.getName());
+				action.zip(theme.getPath(), target + Constants.DIR_SPLIT + theme.getName() + ".gnz");
 			} catch (Exception e) {
 				Logger.printDetail("ZipAction executeZip theme=" + theme.getName());
 				e.printStackTrace();

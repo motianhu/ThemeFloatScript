@@ -14,7 +14,7 @@ public class ActionFactory {
 	}
 
 	public static IAction buildMoveFileAction() {
-		return new MoveFileAction();
+		return new CopyDirAction();
 	}
 
 	public static IAction buildZipAction() {

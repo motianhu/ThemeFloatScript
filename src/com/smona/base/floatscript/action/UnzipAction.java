@@ -23,15 +23,21 @@ public class UnzipAction extends AbstractAction {
 	private void executeUnzip() {
 		String source = CommonUtils.rootPath + Constants.DIR_SPLIT + Constants.DOWNLOAD_PATH;
 		String unzip = CommonUtils.rootPath + Constants.DIR_SPLIT + Constants.UNZIP;
+
+		mkdirs(unzip);
+
 		File themeDir = new File(source);
 		File[] themes = themeDir.listFiles();
 		if (themes == null || themes.length == 0) {
 			return;
 		}
 		ZipFileAction action = new ZipFileAction();
+		String name;
 		for (File theme : themes) {
 			try {
-				action.unZip(theme.getName(), unzip);
+				name = theme.getName();
+				action.unZip(source + Constants.DIR_SPLIT + name,
+						unzip + Constants.DIR_SPLIT + name.substring(0, name.length() - 4));
 			} catch (Exception e) {
 				Logger.printDetail("UnzipAction executeUnzip theme=" + theme.getName());
 				e.printStackTrace();

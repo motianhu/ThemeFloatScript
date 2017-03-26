@@ -33,7 +33,7 @@ public class Main {
 		moveFileAction.setNextAction(zipAction);
 		zipAction.setNextAction(uploadAction);
 
-		downloadAction.execute("start");
+		jsonAction.execute("start");
 	}
 
 }
