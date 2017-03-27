@@ -5,7 +5,9 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
+import com.smona.base.floatscript.util.FileUtils;
 import com.smona.base.floatscript.util.Logger;
+
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.OkHttpClient;
@@ -30,8 +32,9 @@ public class HttpDelegator {
 	}
 
 	public String requestJson() {
-		Request request = new Request.Builder()
-				.url("http://119.23.128.214:8080/carWeb/external/source/operation-desc.json").build();
+		String url = (String) FileUtils.getPropertiesValue("themeUrl",
+				"config.properties");
+		Request request = new Request.Builder().url(url).build();
 		try {
 			Response response = mOkHttpClient.newCall(request).execute();
 			if (response.isSuccessful()) {
@@ -67,6 +70,7 @@ public class HttpDelegator {
 					return true;
 				} catch (Exception e) {
 					Logger.printDetail("***文件下载失败***: " + url);
+					e.printStackTrace();
 				} finally {
 					try {
 						if (is != null)
@@ -89,10 +93,13 @@ public class HttpDelegator {
 
 	public boolean upload(String filePath) {
 		File file = new File(filePath);
-		RequestBody fileBody = RequestBody.create(MediaType.parse("image/png"), file);
-		RequestBody requestBody = new MultipartBody.Builder().setType(MultipartBody.FORM)
+		RequestBody fileBody = RequestBody.create(MediaType.parse("image/png"),
+				file);
+		RequestBody requestBody = new MultipartBody.Builder()
+				.setType(MultipartBody.FORM)
 				.addFormDataPart("file", "head_image", fileBody).build();
-		Request request = new Request.Builder().url("http://xxxxx").post(requestBody).build();
+		Request request = new Request.Builder().url("http://xxxxx")
+				.post(requestBody).build();
 		try {
 			Response response = mOkHttpClient.newCall(request).execute();
 			response.body().string();

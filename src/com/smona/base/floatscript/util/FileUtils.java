@@ -4,6 +4,8 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.IOException;
+import java.util.Properties;
 
 public class FileUtils {
 	public static void copyDir(String sourcePath, String targetPath) {
@@ -44,5 +46,20 @@ public class FileUtils {
 			e.printStackTrace();
 		}
 
+	}
+	
+	public static Object getPropertiesValue(String key, String filePath) {
+		Properties pro = new Properties();
+		FileInputStream in;
+		try {
+			in = new FileInputStream(filePath);
+			pro.load(in);
+			Object result = pro.get(key);
+			in.close();
+			return result;
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 }

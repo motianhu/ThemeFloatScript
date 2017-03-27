@@ -21,8 +21,8 @@ public class DownloadAction extends AbstractAction {
 		File saveDir = new File(savePath);
 		if (saveDir.exists()) {
 			CommonUtils.delete(saveDir);
-			CommonUtils.mkdirs(saveDir);
 		}
+		CommonUtils.mkdirs(saveDir);
 		List<ThemeInfo> themeInfos = DBDelegator.getInstance().readDBToItem();
 		if ((themeInfos == null || themeInfos.size() == 0)
 				&& (content instanceof ArrayList)) {

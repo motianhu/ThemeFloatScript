@@ -3,6 +3,5 @@ package com.smona.base.floatscript.model;
 import java.util.List;
 
 public class JsonItem {
-	public List<ThemeInfo> themeList;
-	public List<ImageDes> data;
+	public List<ThemeInfo> data;
 }

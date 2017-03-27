@@ -9,14 +9,14 @@ public class DBAction extends AbstractAction {
 
 	@Override
 	public void execute(Object content) {
-		Logger.printDetail("DBAction execute ");
+		Logger.printDetail("DBAction execute");
 		JsonItem item = JsonParse.parseJson((String) content, JsonItem.class);
 		if (item == null || item.data == null || item.data.size() <= 0) {
 			return;
 		}
 		DBDelegator.getInstance().saveItemToDB(item);
 		if (nextAction != null) {
-			nextAction.execute(item.themeList);
+			nextAction.execute(item.data);
 		}
 	}
 
