@@ -21,8 +21,10 @@ public class CopyDirAction extends AbstractAction {
 	}
 
 	private void executeCopy() {
-		String source = CommonUtils.rootPath + Constants.DIR_SPLIT + Constants.UNZIP;
-		String copyFile = CommonUtils.rootPath + Constants.DIR_SPLIT + Constants.COPY;
+		String source = CommonUtils.rootPath + Constants.DIR_SPLIT
+				+ Constants.UNZIP;
+		String copyFile = CommonUtils.rootPath + Constants.DIR_SPLIT
+				+ Constants.COPY + Constants.DIR_SPLIT + Constants.CREATE;
 
 		File themeDir = new File(source);
 		String[] themes = themeDir.list();

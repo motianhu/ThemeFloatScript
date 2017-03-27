@@ -16,7 +16,7 @@ public class DBAction extends AbstractAction {
 		}
 		DBDelegator.getInstance().saveItemToDB(item);
 		if (nextAction != null) {
-			nextAction.execute("");
+			nextAction.execute(item.themeList);
 		}
 	}
 

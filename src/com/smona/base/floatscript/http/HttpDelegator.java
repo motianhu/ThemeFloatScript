@@ -45,7 +45,7 @@ public class HttpDelegator {
 
 	}
 
-	public boolean download(String url, String savePath) {
+	public boolean download(String url, String savePath, String fileName) {
 		Request request = new Request.Builder().url(url).build();
 		try {
 			Response response = mOkHttpClient.newCall(request).execute();
@@ -57,7 +57,7 @@ public class HttpDelegator {
 
 				try {
 					is = response.body().byteStream();
-					File file = new File(savePath, "test.log");
+					File file = new File(savePath, fileName + ".gnz");
 					fos = new FileOutputStream(file);
 					while ((len = is.read(buf)) != -1) {
 						fos.write(buf, 0, len);

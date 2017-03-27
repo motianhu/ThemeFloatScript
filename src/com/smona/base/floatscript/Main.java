@@ -28,12 +28,12 @@ public class Main {
 
 		jsonAction.setNextAction(dbAction);
 		dbAction.setNextAction(downloadAction);
-		downloadAction.setNextAction(unZipAction);
+		//downloadAction.setNextAction(unZipAction);
 		unZipAction.setNextAction(moveFileAction);
 		moveFileAction.setNextAction(zipAction);
 		zipAction.setNextAction(uploadAction);
 
-		jsonAction.execute("start");
+		downloadAction.execute("start");
 	}
 
 }
